@@ -53,6 +53,51 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchPlayMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""28bf7115-f934-456f-8923-998d579e6d45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceTileRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""57d8a746-7f19-4500-a45d-eaa732e33087"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceTileLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ffa3c1b-6667-49df-a98a-505f8c4495dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceTileDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ae8f00d-e365-4336-a1d4-753ad69c8411"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceTileUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""9abab784-5771-43ee-8e39-4f8ecda9e902"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +177,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9287f52-f03c-4704-bd15-27319f2794a1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchPlayMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d90979a9-e155-4b24-b96a-11ed5faf1394"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceTileRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b62dbeef-1d05-428a-870f-c4df8f926f29"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceTileLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b793a2f-7571-47be-a64d-1e4cf7b2b27d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceTileDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c74956c-848e-4f3c-beeb-08751d1e9f85"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceTileUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +243,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_SwitchPlayMode = m_Player.FindAction("SwitchPlayMode", throwIfNotFound: true);
+        m_Player_PlaceTileRight = m_Player.FindAction("PlaceTileRight", throwIfNotFound: true);
+        m_Player_PlaceTileLeft = m_Player.FindAction("PlaceTileLeft", throwIfNotFound: true);
+        m_Player_PlaceTileDown = m_Player.FindAction("PlaceTileDown", throwIfNotFound: true);
+        m_Player_PlaceTileUp = m_Player.FindAction("PlaceTileUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +312,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_SwitchPlayMode;
+    private readonly InputAction m_Player_PlaceTileRight;
+    private readonly InputAction m_Player_PlaceTileLeft;
+    private readonly InputAction m_Player_PlaceTileDown;
+    private readonly InputAction m_Player_PlaceTileUp;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -214,6 +324,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @SwitchPlayMode => m_Wrapper.m_Player_SwitchPlayMode;
+        public InputAction @PlaceTileRight => m_Wrapper.m_Player_PlaceTileRight;
+        public InputAction @PlaceTileLeft => m_Wrapper.m_Player_PlaceTileLeft;
+        public InputAction @PlaceTileDown => m_Wrapper.m_Player_PlaceTileDown;
+        public InputAction @PlaceTileUp => m_Wrapper.m_Player_PlaceTileUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +347,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @SwitchPlayMode.started += instance.OnSwitchPlayMode;
+            @SwitchPlayMode.performed += instance.OnSwitchPlayMode;
+            @SwitchPlayMode.canceled += instance.OnSwitchPlayMode;
+            @PlaceTileRight.started += instance.OnPlaceTileRight;
+            @PlaceTileRight.performed += instance.OnPlaceTileRight;
+            @PlaceTileRight.canceled += instance.OnPlaceTileRight;
+            @PlaceTileLeft.started += instance.OnPlaceTileLeft;
+            @PlaceTileLeft.performed += instance.OnPlaceTileLeft;
+            @PlaceTileLeft.canceled += instance.OnPlaceTileLeft;
+            @PlaceTileDown.started += instance.OnPlaceTileDown;
+            @PlaceTileDown.performed += instance.OnPlaceTileDown;
+            @PlaceTileDown.canceled += instance.OnPlaceTileDown;
+            @PlaceTileUp.started += instance.OnPlaceTileUp;
+            @PlaceTileUp.performed += instance.OnPlaceTileUp;
+            @PlaceTileUp.canceled += instance.OnPlaceTileUp;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -245,6 +375,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @SwitchPlayMode.started -= instance.OnSwitchPlayMode;
+            @SwitchPlayMode.performed -= instance.OnSwitchPlayMode;
+            @SwitchPlayMode.canceled -= instance.OnSwitchPlayMode;
+            @PlaceTileRight.started -= instance.OnPlaceTileRight;
+            @PlaceTileRight.performed -= instance.OnPlaceTileRight;
+            @PlaceTileRight.canceled -= instance.OnPlaceTileRight;
+            @PlaceTileLeft.started -= instance.OnPlaceTileLeft;
+            @PlaceTileLeft.performed -= instance.OnPlaceTileLeft;
+            @PlaceTileLeft.canceled -= instance.OnPlaceTileLeft;
+            @PlaceTileDown.started -= instance.OnPlaceTileDown;
+            @PlaceTileDown.performed -= instance.OnPlaceTileDown;
+            @PlaceTileDown.canceled -= instance.OnPlaceTileDown;
+            @PlaceTileUp.started -= instance.OnPlaceTileUp;
+            @PlaceTileUp.performed -= instance.OnPlaceTileUp;
+            @PlaceTileUp.canceled -= instance.OnPlaceTileUp;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -267,5 +412,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnSwitchPlayMode(InputAction.CallbackContext context);
+        void OnPlaceTileRight(InputAction.CallbackContext context);
+        void OnPlaceTileLeft(InputAction.CallbackContext context);
+        void OnPlaceTileDown(InputAction.CallbackContext context);
+        void OnPlaceTileUp(InputAction.CallbackContext context);
     }
 }

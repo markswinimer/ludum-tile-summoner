@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public int xSize;
     public int ySize;
     public List<Door> doors;
+    public TilePosition tilePosition;
     // Start is called before the first frame update
     void Start()
     {

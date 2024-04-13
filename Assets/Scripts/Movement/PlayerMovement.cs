@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction move;
     private InputAction fire;
     private InputAction jump;
+    private Player player;
     Vector2 moveDirection = Vector2.zero;
 
     public float LastPressedJumpTime { get; private set; }
@@ -99,20 +100,24 @@ public class PlayerMovement : MonoBehaviour
     {
         SetGravityScale(Data.gravityScale);
         IsFacingRight = true;
+        player = GetComponent<Player>();
     }
     private void OnJumpPressed(InputAction.CallbackContext context)
     {
+        if(!player.isPlayerControllable) return;
         OnJumpInput();
         // Code to handle jump initiation
     }
 
     private void OnJumpReleased(InputAction.CallbackContext context)
     {
+        if(!player.isPlayerControllable) return;
         OnJumpUpInput();
         // Code to handle jump release
     }
     private void Update()
     {
+        if(!player.isPlayerControllable) return;
         moveDirection = move.ReadValue<Vector2>();
 
         #region TIMERS
@@ -141,8 +146,8 @@ public class PlayerMovement : MonoBehaviour
             //Ground Check
             if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !IsJumping) //checks if set box overlaps with ground
             {
-                Debug.Log("Grounded");
-                Debug.Log("LastOnGroundTime: " + LastOnGroundTime);
+                //Debug.Log("Grounded");
+                //Debug.Log("LastOnGroundTime: " + LastOnGroundTime);
                 LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
             }
 
