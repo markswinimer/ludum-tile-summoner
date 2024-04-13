@@ -11,7 +11,7 @@ public class SummonBase : MonoBehaviour
     public Sprite sprite;
 
     private SpriteRenderer spriteRenderer;
-    private Player player;
+    public Player player;
     public virtual float proximity { get; set;}
 
     public bool canUsePower;
@@ -24,8 +24,12 @@ public class SummonBase : MonoBehaviour
         player = FindFirstObjectByType<Player>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
-        proximity = 2f;
+        proximity = 1f;
         gameObject.SetActive(false);
+    }
+
+    public virtual void SummonStart(){
+
     }
 
     private void OnEnable() {
@@ -39,12 +43,7 @@ public class SummonBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canUsePower){
-            player.GetComponent<PlayerMovement>().canDoubleJump = true;
-        }
-        else{
-            player.GetComponent<PlayerMovement>().canDoubleJump = false;
-        }
+        
     }
 
     public virtual IEnumerator CheckProximity(){
@@ -58,9 +57,5 @@ public class SummonBase : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-    }
-
-    public virtual void DisablePower(){
-        
     }
 }
