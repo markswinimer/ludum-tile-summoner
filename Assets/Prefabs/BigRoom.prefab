@@ -820,6 +820,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 8650297560670137656, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650297560670137656, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

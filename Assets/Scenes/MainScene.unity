@@ -570,7 +570,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.1805553
+  orthographic size: 6.3541665
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1010,45 +1010,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1752320121732528232, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983956587857503168, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3241680234648536114, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: xSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3241680234648536114, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: ySize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3813953967434653262, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4812886790470405120, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
       propertyPath: m_Name
       value: TileBaseTwo
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812886790470405120, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954337357982441027, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5851522893873855137, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8371794765528394550, guid: 2b2f5f74b4dce4747a3ccd706e4c8ff5, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2415,18 +2379,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354296214}
     m_Modifications:
-    - target: {fileID: 10459708823501355, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: xSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 10459708823501355, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: ySize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1744028980889198679, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3219390908795906046, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2467,29 +2419,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3785440614974457457, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410730072101754159, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7500952303625363546, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7931724026826322457, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
       propertyPath: m_Name
       value: TileBase
       objectReference: {fileID: 0}
-    - target: {fileID: 7931724026826322457, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9073947180647826616, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
-      propertyPath: m_Layer
-      value: 3
+    - target: {fileID: 8297050506344849971, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2503,9 +2439,9 @@ SceneRoots:
   - {fileID: 418975145}
   - {fileID: 1047153459}
   - {fileID: 2044600668}
+  - {fileID: 19619463}
   - {fileID: 210941766}
   - {fileID: 424018140}
   - {fileID: 1607600922}
   - {fileID: 1675422429}
-  - {fileID: 19619463}
   - {fileID: 466658979}
