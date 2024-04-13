@@ -69,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Layers & Tags")]
     [SerializeField] private LayerMask _groundLayer;
+
+    //Double Jump ability from summon
+    private bool hasDoubleJumped;
+    public bool canDoubleJump;
     #endregion
 
     private void Awake()
@@ -190,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
         
 
         //Jump
-        if (CanJump() && LastPressedJumpTime > 0)
+        if ((CanJump() && LastPressedJumpTime > 0) || CanDoubleJump())
         {
             IsJumping = true;
             IsWallJumping = false;
@@ -210,6 +214,7 @@ public class PlayerMovement : MonoBehaviour
 
             WallJump(_lastWallJumpDir);
         }
+
         #endregion
 
         #region SLIDE CHECKS
@@ -255,6 +260,14 @@ public class PlayerMovement : MonoBehaviour
             SetGravityScale(Data.gravityScale);
         }
         #endregion
+    }
+    private bool CanDoubleJump(){
+        Debug.Log("canJump="+canDoubleJump.ToString() + " hasJumped=" + hasDoubleJumped.ToString());
+        if(canDoubleJump && !hasDoubleJumped){
+            hasDoubleJumped = true;
+            return true;
+        }
+        return false;
     }
 
     private void FixedUpdate()
@@ -431,7 +444,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanJump()
     {
-        return LastOnGroundTime > 0 && !IsJumping;
+        var canJump = LastOnGroundTime > 0 && !IsJumping;
+        if(canJump){
+            hasDoubleJumped = false;
+        }
+        return canJump;
     }
 
     private bool CanWallJump()

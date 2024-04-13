@@ -98,6 +98,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchSummonMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""9e51818c-90c6-4b5e-840f-dca845e873f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""PlaceTileUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1334cf42-8f04-489b-8f78-cd4766c0f7f7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchSummonMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_PlaceTileLeft = m_Player.FindAction("PlaceTileLeft", throwIfNotFound: true);
         m_Player_PlaceTileDown = m_Player.FindAction("PlaceTileDown", throwIfNotFound: true);
         m_Player_PlaceTileUp = m_Player.FindAction("PlaceTileUp", throwIfNotFound: true);
+        m_Player_SwitchSummonMode = m_Player.FindAction("SwitchSummonMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PlaceTileLeft;
     private readonly InputAction m_Player_PlaceTileDown;
     private readonly InputAction m_Player_PlaceTileUp;
+    private readonly InputAction m_Player_SwitchSummonMode;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @PlaceTileLeft => m_Wrapper.m_Player_PlaceTileLeft;
         public InputAction @PlaceTileDown => m_Wrapper.m_Player_PlaceTileDown;
         public InputAction @PlaceTileUp => m_Wrapper.m_Player_PlaceTileUp;
+        public InputAction @SwitchSummonMode => m_Wrapper.m_Player_SwitchSummonMode;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PlaceTileUp.started += instance.OnPlaceTileUp;
             @PlaceTileUp.performed += instance.OnPlaceTileUp;
             @PlaceTileUp.canceled += instance.OnPlaceTileUp;
+            @SwitchSummonMode.started += instance.OnSwitchSummonMode;
+            @SwitchSummonMode.performed += instance.OnSwitchSummonMode;
+            @SwitchSummonMode.canceled += instance.OnSwitchSummonMode;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -390,6 +416,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PlaceTileUp.started -= instance.OnPlaceTileUp;
             @PlaceTileUp.performed -= instance.OnPlaceTileUp;
             @PlaceTileUp.canceled -= instance.OnPlaceTileUp;
+            @SwitchSummonMode.started -= instance.OnSwitchSummonMode;
+            @SwitchSummonMode.performed -= instance.OnSwitchSummonMode;
+            @SwitchSummonMode.canceled -= instance.OnSwitchSummonMode;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -417,5 +446,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnPlaceTileLeft(InputAction.CallbackContext context);
         void OnPlaceTileDown(InputAction.CallbackContext context);
         void OnPlaceTileUp(InputAction.CallbackContext context);
+        void OnSwitchSummonMode(InputAction.CallbackContext context);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 public class TileMaster : MonoBehaviour
@@ -82,6 +83,8 @@ public class TileMaster : MonoBehaviour
         for(int i = 0; i < tileComp.xSize; i++){
             for(int j = 0; j < tileComp.ySize; j++){
                 var newTilePosition = new TilePosition(tilePosition.x + i, tilePosition.y + j);
+                tile1.layer = 3;
+                tile1.GetComponentInChildren<TilemapRenderer>().sortingLayerName = "Default";
                 existingTiles.Add(newTilePosition, tileComp);
             }
         }

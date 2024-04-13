@@ -8,21 +8,29 @@ public class TurnController : MonoBehaviour
 {
     public Player player;
     public TilePlacer tilePlacer;
+    public SummonController summonController;
     public CinemachineVirtualCamera virtualCamera;
     public float playerLensSize = 9;
     public float tilePlacementLensSize = 20;
+    private PlayMode currentPlayMode;
     public PlayerInputActions playerControls;
     private InputAction switchPlayMode;
+    private InputAction switchSummonMode;
     // Start is called before the first frame update
     void Start()
     {
         player = FindFirstObjectByType<Player>();
         tilePlacer = FindFirstObjectByType<TilePlacer>();
+        summonController = FindFirstObjectByType<SummonController>();
         virtualCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
         playerControls = new PlayerInputActions();
         switchPlayMode = playerControls.Player.SwitchPlayMode;
         switchPlayMode.Enable();
-        switchPlayMode.performed += ChangeControl;
+        switchPlayMode.performed += ChangeControlTile;
+        switchSummonMode = playerControls.Player.SwitchSummonMode;
+        switchSummonMode.Enable();
+        switchSummonMode.performed += ChangeControlSummon;
+        currentPlayMode = PlayMode.Player;
         Debug.Log("FinishedTurnSetup");
     }
 
@@ -30,20 +38,55 @@ public class TurnController : MonoBehaviour
     void Update()
     {
         if(tilePlacer.isControllable && tilePlacer.tilesToPlaceCount <= 0){
-            ChangeControl();
+            ChangeControl(PlayMode.Player);
+        }
+        if(summonController.isSummonMode && summonController.HasNoSummons()){
+            ChangeControl(PlayMode.Player);
         }
     }
 
-    private void ChangeControl(InputAction.CallbackContext context){
-        ChangeControl();
+    private void ChangeControlTile(InputAction.CallbackContext context){
+        var mode = currentPlayMode == PlayMode.Tile ? PlayMode.Player : PlayMode.Tile;
+        ChangeControl(mode);
     }
 
-    private void ChangeControl(){
+    private void ChangeControlSummon(InputAction.CallbackContext context){
+        var mode = currentPlayMode == PlayMode.Summon ? PlayMode.Player : PlayMode.Summon;
+        ChangeControl(mode);
+    }
+
+    private void ChangeControl(PlayMode playMode){
         Debug.Log("HitChangeControl");
-        player.ChangePlayerControl();
-        tilePlacer.ChangeControl();
+        switch(currentPlayMode){
+            case PlayMode.Player:
+                player.ChangePlayerControl();
+                break;
+            case PlayMode.Tile:
+                tilePlacer.ChangeControl();
+                break;
+            case PlayMode.Summon:
+                summonController.ChangeControl();
+                break;
+        }
+
+        switch(playMode){
+            case PlayMode.Player:
+                player.ChangePlayerControl();
+                virtualCamera.m_Lens.OrthographicSize = playerLensSize;
+                virtualCamera.Follow = player.transform;
+                break;
+            case PlayMode.Tile:
+                tilePlacer.ChangeControl();
+                virtualCamera.m_Lens.OrthographicSize = tilePlacementLensSize;
+                virtualCamera.Follow = tilePlacer.currentTile.transform;
+                break;
+            case PlayMode.Summon:
+                summonController.ChangeControl();
+                virtualCamera.m_Lens.OrthographicSize = playerLensSize;
+                virtualCamera.Follow = player.currentTile.GetComponentInChildren<PlayerDetector>().transform;
+                break;
+        }
+        currentPlayMode = playMode;
         //TODO: Smooth out camera movement;
-        virtualCamera.m_Lens.OrthographicSize = player.isPlayerControllable ? playerLensSize : tilePlacementLensSize;
-        virtualCamera.Follow = player.isPlayerControllable ? player.transform : player.currentTile.transform;
     }
 }
