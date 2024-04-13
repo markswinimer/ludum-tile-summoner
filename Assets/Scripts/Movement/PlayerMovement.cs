@@ -196,6 +196,7 @@ public class PlayerMovement : MonoBehaviour
         //Jump
         if ((CanJump() && LastPressedJumpTime > 0) || CanDoubleJump())
         {
+            Debug.Log("Jumping sssssss");
             IsJumping = true;
             IsWallJumping = false;
             _isJumpCut = false;
@@ -262,7 +263,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     }
     private bool CanDoubleJump(){
-        Debug.Log("canJump="+canDoubleJump.ToString() + " hasJumped=" + hasDoubleJumped.ToString());
+        // Debug.Log("canJump="+canDoubleJump.ToString() + " hasJumped=" + hasDoubleJumped.ToString());
         if(canDoubleJump && !hasDoubleJumped){
             hasDoubleJumped = true;
             return true;

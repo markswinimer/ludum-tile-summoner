@@ -842,6 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  currentTile: {fileID: 0}
   virtualCamera: {fileID: 0}
   numberOfTileOptions: 5
   tilesToPlaceMaxCount: 3
@@ -1360,6 +1361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   tilePlacer: {fileID: 0}
+  summonController: {fileID: 0}
   virtualCamera: {fileID: 0}
   playerLensSize: 9
   tilePlacementLensSize: 20
