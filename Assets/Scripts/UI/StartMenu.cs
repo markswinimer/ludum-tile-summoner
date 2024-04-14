@@ -44,7 +44,7 @@ public class StartMenu : MonoBehaviour
         }
 
         // Load the next scene
-        SceneManager.LoadScene("MARK");
+        SceneManager.LoadScene("MainScene");
     }
     public void ExitGame()
     {

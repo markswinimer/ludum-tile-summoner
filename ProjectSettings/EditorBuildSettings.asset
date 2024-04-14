@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: 63a109aabea1d974080a4ba2d832b49c
   - enabled: 1
-    path: Assets/Scenes/MARK.unity
-    guid: 8381fe44323eb8443ba7f35affc65a77
-  - enabled: 1
     path: Assets/Scenes/MainScene.unity
-    guid: 12df516837fc3674894290f39652b5e8
+    guid: a4196387b7b198346a6aa6556bc81ae7
+  - enabled: 0
+    path: Assets/Scenes/MARK.unity
+    guid: 0716a3dddd589d94e88025f8654b0084
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
