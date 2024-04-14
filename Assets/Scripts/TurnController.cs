@@ -12,7 +12,8 @@ public class TurnController : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public float playerLensSize = 4.8f;
     public float tilePlacementLensSize = 20;
-    private PlayMode currentPlayMode;
+    public float summonPlacementLensSize = 9;
+    public PlayMode currentPlayMode;
     public PlayerInputActions playerControls;
     private InputAction switchPlayMode;
     private InputAction switchSummonMode;
@@ -52,6 +53,7 @@ public class TurnController : MonoBehaviour
 
     private void ChangeControlSummon(InputAction.CallbackContext context){
         var mode = currentPlayMode == PlayMode.Summon ? PlayMode.Player : PlayMode.Summon;
+        if(mode == PlayMode.Summon && summonController.HasNoSummonsInInventory()) return;
         ChangeControl(mode);
     }
 
@@ -82,7 +84,7 @@ public class TurnController : MonoBehaviour
                 break;
             case PlayMode.Summon:
                 summonController.ChangeControl();
-                virtualCamera.m_Lens.OrthographicSize = playerLensSize;
+                virtualCamera.m_Lens.OrthographicSize = summonPlacementLensSize;
                 virtualCamera.Follow = player.currentTile.GetComponentInChildren<PlayerDetector>().transform;
                 break;
         }

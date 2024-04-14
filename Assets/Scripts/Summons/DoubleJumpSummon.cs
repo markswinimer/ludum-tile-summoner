@@ -11,6 +11,12 @@ public class DoubleJumpSummon : SummonBase
     {
         playerMovement = player.GetComponent<PlayerMovement>();
         proximity = 2f;
+        summon = Summon.DoubleJump;
+    }
+
+    public override void SummonOnDisable()
+    {
+        playerMovement.canDoubleJump = false;
     }
 
     // Update is called once per frame

@@ -6,6 +6,7 @@ using UnityEngine;
 public class SummonBase : MonoBehaviour
 {
     public float expirationTimer { get; set; }
+    private float currentExpirationTimer;
     public int interactionCount { get; set; }
     public bool isPlaced;
     public Sprite sprite;
@@ -16,6 +17,10 @@ public class SummonBase : MonoBehaviour
 
     public bool canUsePower;
 
+    private TurnController turnController;
+
+    public Summon summon;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +28,10 @@ public class SummonBase : MonoBehaviour
         isPlaced = false;
         player = FindFirstObjectByType<Player>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        turnController = FindFirstObjectByType<TurnController>();
         spriteRenderer.sprite = sprite;
         proximity = 1f;
+        expirationTimer = 10;
         gameObject.SetActive(false);
         SummonStart();
     }
@@ -35,16 +42,22 @@ public class SummonBase : MonoBehaviour
 
     private void OnEnable() {
         StartCoroutine(CheckProximity());
+        StartCoroutine(ExpireAfterTime());
     }
 
     private void OnDisable() {
         StopCoroutine(CheckProximity());
+        SummonOnDisable();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public virtual void SummonOnDisable(){
+
     }
 
     public virtual IEnumerator CheckProximity(){
@@ -58,5 +71,20 @@ public class SummonBase : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    private IEnumerator ExpireAfterTime(){
+        //wait for player to finish summoning
+        currentExpirationTimer = 0;
+        while(turnController.currentPlayMode == PlayMode.Summon){
+            yield return new WaitForEndOfFrame();
+        }
+        while(currentExpirationTimer <= expirationTimer){
+            currentExpirationTimer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        canUsePower = false;
+        gameObject.SetActive(false);
+
     }
 }

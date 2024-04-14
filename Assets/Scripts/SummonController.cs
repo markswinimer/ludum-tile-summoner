@@ -8,10 +8,12 @@ public class SummonController : MonoBehaviour
 {
     public bool isSummonMode; 
     private SummonPlacer summonPlacer;
+    private InventoryManager inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
         summonPlacer = FindFirstObjectByType<SummonPlacer>();
+        inventoryManager = FindFirstObjectByType<InventoryManager>();
     }
 
     // Update is called once per frame
@@ -44,5 +46,9 @@ public class SummonController : MonoBehaviour
 
     public bool HasNoSummons(){
         return summonPlacer.HasNoSummons();
+    }
+
+    public bool HasNoSummonsInInventory(){
+        return inventoryManager.summonsAquired.Count == 0;
     }
 }

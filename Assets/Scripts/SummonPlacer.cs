@@ -35,11 +35,19 @@ public class SummonPlacer : MonoBehaviour
 
     public void Enable(){
         renderers.ForEach(r => r.enabled = true);
+        foreach(var summon in summonPrefabs){
+            summon.GetComponent<SummonBase>().isPlaced = false;
+        }
         SetupSummons();
     }
 
     public void Disable(){
         renderers.ForEach(r => r.enabled = false);
+        foreach(var summon in summonPrefabs){
+            if(!summon.GetComponent<SummonBase>().isPlaced){
+                summon.SetActive(false);
+            }
+        }
     }
 
     private void SetupSummons(){
