@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: tileType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 529771896176409351, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.84
+      objectReference: {fileID: 0}
     - target: {fileID: 1288389725029763773, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
       propertyPath: yLength
       value: 8
