@@ -180,6 +180,7 @@ public class TilePlacer : MonoBehaviour
     private void HighlightPlacements(){
         //Get all possible tile locations based on touchingTile
         var borderingPlacements = new List<HighlightHelper>();
+        highlightPositions.Clear();
         for(int i = 0; i < currentTile.xSize; i++){
             var xPos = currentTile.tilePosition.x + i;
             borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y - 1), DoorWall.Bottom));
@@ -228,18 +229,8 @@ public class TilePlacer : MonoBehaviour
     }
 
     private void RemoveHighlights() {
-        // Clone the list to avoid modification during iteration
-        List<GameObject> highlightsToRemove = new List<GameObject>(existingHighlights);
-
-        foreach (GameObject highlight in highlightsToRemove) {
-            if (highlight != null) {
-                Destroy(highlight);
-            } else {
-                Debug.LogWarning("Attempted to destroy a null highlight");
-            }
+        foreach(var highlight in existingHighlights){
+            Destroy(highlight);
         }
-
-        // Clear the original list after all highlights have been destroyed
-        existingHighlights.Clear();
     }
 }
