@@ -26,6 +26,7 @@ public class SummonBase : MonoBehaviour
         spriteRenderer.sprite = sprite;
         proximity = 1f;
         gameObject.SetActive(false);
+        SummonStart();
     }
 
     public virtual void SummonStart(){
@@ -43,7 +44,7 @@ public class SummonBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public virtual IEnumerator CheckProximity(){
@@ -51,7 +52,6 @@ public class SummonBase : MonoBehaviour
             var distance = Vector2.Distance(player.gameObject.transform.position, transform.position);
             if(distance < proximity){
                 canUsePower = true;
-                Debug.Log("Can use power");
             }
             else{
                 canUsePower = false;

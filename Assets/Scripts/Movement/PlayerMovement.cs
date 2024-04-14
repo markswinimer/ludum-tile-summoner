@@ -71,8 +71,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
 
     //Double Jump ability from summon
-    private bool hasDoubleJumped;
     public bool canDoubleJump;
+    private bool cooldownDoubleJump = false;
+    private bool willDoubleJump = false;
     #endregion
 
     private void Awake()
@@ -108,9 +109,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnJumpPressed(InputAction.CallbackContext context)
     {
-        if(!player.isPlayerControllable) return;
+
+        if (!player.isPlayerControllable && !canDoubleJump) return;
+        if (canDoubleJump && !cooldownDoubleJump) willDoubleJump = true;
         OnJumpInput();
-        // Code to handle jump initiation
     }
 
     private void OnJumpReleased(InputAction.CallbackContext context)
@@ -150,9 +152,8 @@ public class PlayerMovement : MonoBehaviour
             //Ground Check
             if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !IsJumping) //checks if set box overlaps with ground
             {
-                //Debug.Log("Grounded");
-                //Debug.Log("LastOnGroundTime: " + LastOnGroundTime);
                 LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
+                cooldownDoubleJump = false;
             }
 
             //Right Wall Check
@@ -194,9 +195,8 @@ public class PlayerMovement : MonoBehaviour
         
 
         //Jump
-        if ((CanJump() && LastPressedJumpTime > 0) || CanDoubleJump())
+        if ((CanJump() && LastPressedJumpTime > 0))
         {
-            Debug.Log("Jumping sssssss");
             IsJumping = true;
             IsWallJumping = false;
             _isJumpCut = false;
@@ -262,14 +262,6 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
     }
-    private bool CanDoubleJump(){
-        // Debug.Log("canJump="+canDoubleJump.ToString() + " hasJumped=" + hasDoubleJumped.ToString());
-        if(canDoubleJump && !hasDoubleJumped){
-            hasDoubleJumped = true;
-            return true;
-        }
-        return false;
-    }
 
     private void FixedUpdate()
     {
@@ -288,10 +280,7 @@ public class PlayerMovement : MonoBehaviour
     //Methods which whandle input detected in Update()
     public void OnJumpInput()
     {
-        Debug.Log("Jump Input");
-        Debug.Log(LastPressedJumpTime);
         LastPressedJumpTime = Data.jumpInputBufferTime;
-        Debug.Log(LastPressedJumpTime);
     }
 
     public void OnJumpUpInput()
@@ -378,10 +367,12 @@ public class PlayerMovement : MonoBehaviour
     #region JUMP METHODS
     private void Jump()
     {
-        Debug.Log("Jumping");
         //Ensures we can't call Jump multiple times from one press
         LastPressedJumpTime = 0;
         LastOnGroundTime = 0;
+        if (willDoubleJump) 
+            cooldownDoubleJump = true;
+            willDoubleJump = false;
 
         #region Perform Jump
         //We increase the force applied if we are falling
@@ -446,9 +437,8 @@ public class PlayerMovement : MonoBehaviour
     private bool CanJump()
     {
         var canJump = LastOnGroundTime > 0 && !IsJumping;
-        if(canJump){
-            hasDoubleJumped = false;
-        }
+        if (!cooldownDoubleJump && willDoubleJump)
+            canJump = true;
         return canJump;
     }
 

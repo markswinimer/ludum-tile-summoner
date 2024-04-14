@@ -227,17 +227,19 @@ public class TilePlacer : MonoBehaviour
         }
     }
 
-    private void RemoveHighlights(){
-        //Debug.Log("Remove highlights, count="+existingHighlights.Count);
-        //foreach(var highlight in FindFirstObjectByType<HighlightTiles>().GetComponentsInChildren<HighlightTile>()){
-        //    Destroy(highlight.gameObject);
-        //}
-        //Debug.Log("Passed Remove highlights, count="+existingHighlights.Count);
+    private void RemoveHighlights() {
+        // Clone the list to avoid modification during iteration
+        List<GameObject> highlightsToRemove = new List<GameObject>(existingHighlights);
 
-        for(int i = 0; i < existingHighlights.Count; i++){
-            Destroy(existingHighlights[i]);
+        foreach (GameObject highlight in highlightsToRemove) {
+            if (highlight != null) {
+                Destroy(highlight);
+            } else {
+                Debug.LogWarning("Attempted to destroy a null highlight");
+            }
         }
-        Debug.Log("Reached new list of highlights");
-        existingHighlights = new List<GameObject>();
+
+        // Clear the original list after all highlights have been destroyed
+        existingHighlights.Clear();
     }
 }
