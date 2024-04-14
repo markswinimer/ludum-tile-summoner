@@ -164,6 +164,14 @@ PrefabInstance:
       propertyPath: ySize
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 10459708823501355, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
+      propertyPath: isShrine
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10459708823501355, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
+      propertyPath: tileType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1288389725029763773, guid: 413f75546b62f8f48acf878acfa5b9ba, type: 3}
       propertyPath: yLength
       value: 2

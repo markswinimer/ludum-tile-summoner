@@ -17,6 +17,7 @@ public class TurnController : MonoBehaviour
     public PlayerInputActions playerControls;
     private InputAction switchPlayMode;
     private InputAction switchSummonMode;
+    private InventoryManager inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,7 @@ public class TurnController : MonoBehaviour
         switchSummonMode.Enable();
         switchSummonMode.performed += ChangeControlSummon;
         currentPlayMode = PlayMode.Player;
+        inventoryManager = FindFirstObjectByType<InventoryManager>();
         Debug.Log("FinishedTurnSetup");
     }
 
@@ -39,6 +41,7 @@ public class TurnController : MonoBehaviour
     void Update()
     {
         if(tilePlacer.isControllable && tilePlacer.tilesToPlaceCount <= 0){
+            tilePlacer.PlaceShrineTile();
             ChangeControl(PlayMode.Player);
         }
         if(summonController.isSummonMode && summonController.HasNoSummons()){
@@ -47,8 +50,13 @@ public class TurnController : MonoBehaviour
     }
 
     private void ChangeControlTile(InputAction.CallbackContext context){
-        var mode = currentPlayMode == PlayMode.Tile ? PlayMode.Player : PlayMode.Tile;
-        ChangeControl(mode);
+        if(currentPlayMode == PlayMode.Tile) return;
+        if(tilePlacer.currentTile == null) {
+            tilePlacer.currentTile = player.currentTile;
+        }
+        if(inventoryManager.guitar == Guitar.None) return;
+        if(player.currentTile.tileType != TileType.Shrine || tilePlacer.currentTile != player.currentTile) return;
+        ChangeControl(PlayMode.Tile);
     }
 
     private void ChangeControlSummon(InputAction.CallbackContext context){

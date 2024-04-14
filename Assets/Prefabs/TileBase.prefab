@@ -901,6 +901,8 @@ MonoBehaviour:
   xSize: 1
   ySize: 1
   doors: []
+  tileType: 0
+  summonRequirements: 00000000
 --- !u!1 &9073947180647826616
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +944,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7241480909518648083}
     m_Modifications:
+    - target: {fileID: 3603002624841104247, guid: 5ece143ea94b4b4418fd88609ca2099f, type: 3}
+      propertyPath: xPos
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3603002624841104247, guid: 5ece143ea94b4b4418fd88609ca2099f, type: 3}
       propertyPath: yPos
       value: 8

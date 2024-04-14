@@ -28,26 +28,27 @@ public class Door : MonoBehaviour {
                 modStart = yPos % tileOffset;
                 modEnd = modStart + yLength;
                 otherModStart = door.yPos % tileOffset;
-                otherModEnd = otherModStart + yLength;
-                return door.doorWall == DoorWall.Right && modStart <= otherModEnd && otherModStart <= modEnd;
+                otherModEnd = otherModStart + door.yLength;
+                return door.doorWall == DoorWall.Right && modStart < otherModEnd && otherModStart < modEnd;
             case DoorWall.Right:
                 modStart = yPos % tileOffset;
                 modEnd = modStart + yLength;
                 otherModStart = door.yPos % tileOffset;
-                otherModEnd = otherModStart + yLength;
-                return door.doorWall == DoorWall.Left && modStart <= otherModEnd && otherModStart <= modEnd;
+                otherModEnd = otherModStart + door.yLength;
+                Debug.Log("door1 wall=" +doorWall.ToString() +" door2 wall="+door.doorWall.ToString() + ", modStart " + modStart.ToString()+" <= oModEnd "+ otherModEnd.ToString() + " & otherModStart " + otherModStart.ToString() + " <= modEnd " + modEnd.ToString());
+                return door.doorWall == DoorWall.Left && modStart < otherModEnd && otherModStart < modEnd;
             case DoorWall.Top:
                 modStart = xPos % tileOffset;
                 modEnd = modStart + xLength;
                 otherModStart = door.xPos % tileOffset;
-                otherModEnd = otherModStart + xLength;
-                return door.doorWall == DoorWall.Bottom && modStart <= otherModEnd && otherModStart <= modEnd;
+                otherModEnd = otherModStart + door.xLength;
+                return door.doorWall == DoorWall.Bottom && modStart < otherModEnd && otherModStart < modEnd;
             case DoorWall.Bottom:
                 modStart = yPos % tileOffset;
                 modEnd = modStart + yLength;
                 otherModStart = door.yPos % tileOffset;
-                otherModEnd = otherModStart + yLength;
-                return door.doorWall == DoorWall.Top && modStart <= otherModEnd && otherModStart <= modEnd;
+                otherModEnd = otherModStart + door.yLength;
+                return door.doorWall == DoorWall.Top && modStart < otherModEnd && otherModStart < modEnd;
             default:
                 return false;
         }

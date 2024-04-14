@@ -10,6 +10,7 @@ public class TileMaster : MonoBehaviour
     public Dictionary<TilePosition, Tile> existingTiles;
 
     public List<GameObject> tilePrefabs;
+    public List<GameObject> shrineTiles;
 
     public int tileOffset = 100;
 
@@ -22,7 +23,8 @@ public class TileMaster : MonoBehaviour
         existingTiles = new Dictionary<TilePosition, Tile>();
         tilePrefabs = FindFirstObjectByType<TilePrefabs>().GetComponentsInChildren<Tile>(true).Select(t => t.gameObject).ToList();
         tilePrefabs.ForEach(t => t.SetActive(false));
-        CreateTile(new TilePosition(0, 0), tilePrefabs[0]);
+        shrineTiles = tilePrefabs.Where(t => t.GetComponent<Tile>().tileType == TileType.Shrine).ToList();
+        CreateTile(new TilePosition(0, 0), shrineTiles[0]);
     }
 
     // Update is called once per frame
@@ -68,7 +70,7 @@ public class TileMaster : MonoBehaviour
         return null;
     }
 
-    private GameObject CreateTile(TilePosition tilePosition, GameObject tileToCreate){
+    public GameObject CreateTile(TilePosition tilePosition, GameObject tileToCreate){
         var pos = transform.position;
         pos.x += tileOffset * tilePosition.x;
         pos.y += tileOffset * tilePosition.y;

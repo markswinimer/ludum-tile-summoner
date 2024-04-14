@@ -10,10 +10,15 @@ public class Tile : MonoBehaviour
     public int ySize;
     public List<Door> doors;
     public TilePosition tilePosition;
+    public TileType tileType = TileType.None;
+    public List<Summon> summonRequirements;
     // Start is called before the first frame update
     void Start()
     {
         doors = GetComponentsInChildren<Door>().ToList();
+        if(summonRequirements == null){
+            summonRequirements = new List<Summon>();
+        }
         Debug.Log("Door Count:"+doors.Count);
     }
 

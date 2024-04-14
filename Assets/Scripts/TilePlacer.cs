@@ -34,6 +34,7 @@ public class TilePlacer : MonoBehaviour
     public GameObject highlightPrefab;
     private HighlightTiles highlightParent;
     private List<GameObject> existingHighlights;
+    private InventoryManager inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +62,7 @@ public class TilePlacer : MonoBehaviour
         highlightPositions = new List<HighlightHelper>();
         highlightParent = FindFirstObjectByType<HighlightTiles>();
         existingHighlights = new List<GameObject>();
+        inventoryManager = FindFirstObjectByType<InventoryManager>();
     }
 
     // Update is called once per frame
@@ -137,7 +139,8 @@ public class TilePlacer : MonoBehaviour
 
     private void CreateFakeTiles(){
         for(int i = 0; i < numberOfTileOptions; i++){
-            var tileToCreate = tileMaster.tilePrefabs[Random.Range(0, tileMaster.tilePrefabs.Count)];
+            var tilesByGuitarType = tileMaster.tilePrefabs.Where(t => MeetsPlayerCriteria(t.GetComponent<Tile>())).ToList();
+            var tileToCreate = tilesByGuitarType[Random.Range(0, tilesByGuitarType.Count)];
             var pos = currentTile.transform.position;
             pos.x -= tileOffset;
             var tile1 = Instantiate(tileToCreate, transform);
@@ -231,6 +234,76 @@ public class TilePlacer : MonoBehaviour
     private void RemoveHighlights() {
         foreach(var highlight in existingHighlights){
             Destroy(highlight);
+        }
+    }
+
+    public void PlaceShrineTile(){
+        var shrineCreated = false;
+        GameObject newTile = null;
+        while(!shrineCreated){
+            foreach(var tile in tileMaster.shrineTiles){
+                newTile = tileMaster.CreateTile(currentTile.tilePosition, new TilePosition(currentTile.tilePosition.x + 1, currentTile.tilePosition.y),
+                    DoorWall.Right, tile);
+                shrineCreated = newTile != null;
+                if(shrineCreated) break;
+            }
+            if(shrineCreated) break;
+            foreach(var tile in tileMaster.shrineTiles){
+                newTile = tileMaster.CreateTile(currentTile.tilePosition, new TilePosition(currentTile.tilePosition.x - 1, currentTile.tilePosition.y),
+                    DoorWall.Left, tile);
+                shrineCreated = newTile != null;
+                if(shrineCreated) break;
+            }
+            if(shrineCreated) break;
+            foreach(var tile in tileMaster.shrineTiles){
+                newTile = tileMaster.CreateTile(currentTile.tilePosition, new TilePosition(currentTile.tilePosition.x, currentTile.tilePosition.y - 1),
+                    DoorWall.Bottom, tile);
+                shrineCreated = newTile != null;
+                if(shrineCreated) break;
+            }
+            if(shrineCreated) break;
+            foreach(var tile in tileMaster.shrineTiles){
+                newTile = tileMaster.CreateTile(currentTile.tilePosition, new TilePosition(currentTile.tilePosition.x, currentTile.tilePosition.y + 1),
+                    DoorWall.Top, tile);
+                shrineCreated = newTile != null;
+                if(shrineCreated) break;
+            }
+            if(shrineCreated) break;
+            Debug.LogWarning("Shrine never created");
+            shrineCreated = true;
+            break;
+        }
+        if(newTile == null) return;
+        currentTile = newTile.GetComponent<Tile>();
+        virtualCamera.Follow = currentTile.GetComponentInChildren<PlayerDetector>().transform;
+        RemoveHighlights();
+    }
+
+    private bool MeetsPlayerCriteria(Tile tile){
+        if(!HasMatchingTileType(tile.tileType)) return false;
+        if(tile.summonRequirements.Contains(Summon.None)) return true;
+        foreach(var summonReq in tile.summonRequirements){
+            if(!inventoryManager.summonsAquiredEnum.Contains(summonReq)) return false;
+        }
+        return true;
+    }
+
+    private bool HasMatchingTileType(TileType tileType){
+        return tileType == TileType.None || tileType == MapGuitar(inventoryManager.guitar);
+    }
+
+    private TileType MapGuitar(Guitar guitar){
+        switch(guitar){
+            case Guitar.None:
+                return TileType.None;
+            case Guitar.Acoustic:
+                return TileType.Acoustic;
+            case Guitar.Electric:
+                return TileType.Electric;
+            case Guitar.Bass:
+                return TileType.Bass;
+            default:
+                return TileType.None;
         }
     }
 }

@@ -1524,9 +1524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc019f4ad91e4a64ebe3e083e65e63cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSize: 1
+  xSize: 2
   ySize: 1
   doors: []
+  tileType: 2
 --- !u!1 &8466445075125749076
 GameObject:
   m_ObjectHideFlags: 0
