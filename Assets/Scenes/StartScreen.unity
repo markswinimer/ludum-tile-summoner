@@ -868,10 +868,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movement : WASD, Spacebar\nE : Summons creature (if acquired)\n      -
-    Use Mouse to aim and click to summon\nTab (changing): Open Tile Placement Menu\n     
-    - Use number keys to select a tile\n      - Use mouse to click on a useable tile
-    slot"
+  m_text: "Movement : WASD, Spacebar\nI: opens instructions\nESC : Pause Game\nE
+    : Summons creature (if acquired)\n      - Use Mouse to aim and click to summon\nTab
+    (changing): Open Tile Placement Menu\n      - Use number keys to select a tile\n     
+    - Use mouse to click on a useable tile slot"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
