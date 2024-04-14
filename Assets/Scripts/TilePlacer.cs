@@ -76,11 +76,15 @@ public class TilePlacer : MonoBehaviour
             }
         }
         if(tilesToPlace.Count > 0 && tilesToPlaceCount <= 0){
-            for(int i = 0; i < tilesToPlace.Count; i++){
-                Destroy(tilesToPlace[i].gameObject);
-            }
-            tilesToPlace = new List<GameObject>();
+            DestroyFakeTiles();
         }
+    }
+
+    private void DestroyFakeTiles(){
+        for(int i = 0; i < tilesToPlace.Count; i++){
+            Destroy(tilesToPlace[i].gameObject);
+        }
+        tilesToPlace = new List<GameObject>();
     }
 
     private void PlaceTileUp(InputAction.CallbackContext context){
@@ -120,6 +124,7 @@ public class TilePlacer : MonoBehaviour
             return;
         } 
         CreateFakeTiles();
+        tilesToPlaceCount = tilesToPlaceMaxCount;
         spriteRenderer.enabled = true;
     }
 
@@ -135,9 +140,11 @@ public class TilePlacer : MonoBehaviour
         tilesToPlace.Remove(tileToDestroy);
         SelectTile(0);
         SetTilePositions();
+        if(IsLockedOut()) CreateFakeTiles();
     }
 
     private void CreateFakeTiles(){
+        DestroyFakeTiles();
         for(int i = 0; i < numberOfTileOptions; i++){
             var tilesByGuitarType = tileMaster.tilePrefabs.Where(t => MeetsPlayerCriteria(t.GetComponent<Tile>())).ToList();
             var tileToCreate = tilesByGuitarType[Random.Range(0, tilesByGuitarType.Count)];
@@ -153,9 +160,49 @@ public class TilePlacer : MonoBehaviour
             tile1.GetComponentInChildren<TilemapRenderer>().sortingLayerName = "UI";
         }
         SelectTile(0);
-        tilesToPlaceCount = tilesToPlaceMaxCount;
         SetTilePositions();
+        if(IsLockedOut()){
+            Debug.LogWarning("Locked out");
+            //dont want to enable until we only have tiles that will not cause lockout in some form (big tile does this now since it only has one wall with doors)
+            //CreateFakeTiles();
+        }
     }
+
+    private bool IsLockedOut(){
+        //Get all possible tile locations based on touchingTile
+        var borderingPlacements = new List<HighlightHelper>();
+        for(int i = 0; i < currentTile.xSize; i++){
+            var xPos = currentTile.tilePosition.x + i;
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y - 1), DoorWall.Bottom));
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y + currentTile.ySize), DoorWall.Top));
+        }
+        for(int i = 0; i < currentTile.ySize; i++){
+            var yPos = currentTile.tilePosition.y + i;
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(currentTile.tilePosition.x - 1, yPos), DoorWall.Left));
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(currentTile.tilePosition.x + currentTile.xSize, yPos), DoorWall.Right));
+        }
+
+        //remove locations taken in existing tiles
+        var possiblePlacements = new List<HighlightHelper>();
+        foreach(var borderingPlacement in borderingPlacements){
+            if(!tileMaster.existingTiles.TryGetValue(borderingPlacement.tilePosition, out var _)){
+                possiblePlacements.Add(borderingPlacement);
+            }
+        }
+
+        foreach(var tile in tilesToPlace){
+            foreach(var possiblePlacement in possiblePlacements){
+                var highlight = tileMaster.CanTilesTouch(currentTile, tile.GetComponent<Tile>(), possiblePlacement.doorWall,
+                    possiblePlacement.tilePosition, out var tilePosition);
+                if(highlight){
+                    return false;
+                } 
+            }
+        }
+        return true;
+    }
+
+
 
     private void SetTilePositions(){
         transform.position = new Vector3(currentTile.transform.position.x + xOffset, currentTile.transform.position.y + yOffset);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SummonBase : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class SummonBase : MonoBehaviour
 
     public Summon summon;
 
+    public AudioResource playOnUseSound;
+    public AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +37,8 @@ public class SummonBase : MonoBehaviour
         proximity = 1f;
         expirationTimer = 10;
         gameObject.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.resource = playOnUseSound;
         SummonStart();
     }
 
@@ -86,5 +92,14 @@ public class SummonBase : MonoBehaviour
         canUsePower = false;
         gameObject.SetActive(false);
 
+    }
+
+    public void SetPlaced(){
+        isPlaced = true;
+        currentExpirationTimer = 0;
+    }
+
+    public virtual void PlaySound(){
+        audioSource.Play();
     }
 }

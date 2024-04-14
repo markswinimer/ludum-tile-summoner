@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 public class SummonController : MonoBehaviour
@@ -26,7 +27,7 @@ public class SummonController : MonoBehaviour
                 var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 pos.z = 0;
                 summon.transform.position = pos;
-                summon.GetComponent<SummonBase>().isPlaced = true;
+                summon.GetComponent<SummonBase>().SetPlaced();
             }
         }
     }

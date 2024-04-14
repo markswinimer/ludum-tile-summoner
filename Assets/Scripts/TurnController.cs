@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 public class TurnController : MonoBehaviour
@@ -18,6 +19,10 @@ public class TurnController : MonoBehaviour
     private InputAction switchPlayMode;
     private InputAction switchSummonMode;
     private InventoryManager inventoryManager;
+    private AudioSource audioSource;
+    public AudioResource electricSummoning;
+    public AudioResource acousticSummoning;
+    public AudioResource bassSummoning;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +39,7 @@ public class TurnController : MonoBehaviour
         switchSummonMode.performed += ChangeControlSummon;
         currentPlayMode = PlayMode.Player;
         inventoryManager = FindFirstObjectByType<InventoryManager>();
+        audioSource = GetComponent<AudioSource>();
         Debug.Log("FinishedTurnSetup");
     }
 
@@ -84,19 +90,45 @@ public class TurnController : MonoBehaviour
                 player.ChangePlayerControl();
                 virtualCamera.m_Lens.OrthographicSize = playerLensSize;
                 virtualCamera.Follow = player.transform;
+                audioSource.Stop();
                 break;
             case PlayMode.Tile:
                 tilePlacer.ChangeControl();
                 virtualCamera.m_Lens.OrthographicSize = tilePlacementLensSize;
                 virtualCamera.Follow = tilePlacer.currentTile.transform;
+                audioSource.Play();
                 break;
             case PlayMode.Summon:
                 summonController.ChangeControl();
                 virtualCamera.m_Lens.OrthographicSize = summonPlacementLensSize;
                 virtualCamera.Follow = player.currentTile.GetComponentInChildren<PlayerDetector>().transform;
+                audioSource.Play();
                 break;
         }
         currentPlayMode = playMode;
         //TODO: Smooth out camera movement;
+    }
+
+    
+
+    public void SetSummoningAudio(Guitar guitar){
+        switch(guitar){
+            case Guitar.Acoustic:
+                audioSource.resource = acousticSummoning;
+                audioSource.volume = 1f;
+                break;
+            case Guitar.Electric:
+                audioSource.resource = electricSummoning;
+                audioSource.volume = 0.05f;
+                break;
+            case Guitar.Bass:
+                audioSource.resource = bassSummoning;
+                audioSource.volume = 0.05f;
+                break;
+            default:
+                audioSource.resource = acousticSummoning;
+                audioSource.volume = 1f;
+                break;
+        }
     }
 }

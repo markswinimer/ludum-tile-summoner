@@ -6,6 +6,7 @@ public class KillZoneDetector : MonoBehaviour
 {
 
     public Player player;
+    public float yOffset = -12;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +24,10 @@ public class KillZoneDetector : MonoBehaviour
             Debug.Log("Player fell and is dead");
             player.isDead = true;
         }
+    }
+
+    public void SetNewPosition(Vector3 position){
+        position.y += yOffset;
+        transform.position = position;
     }
 }

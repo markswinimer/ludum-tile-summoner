@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Double Jump ability from summon
     public bool canDoubleJump;
-    private bool cooldownDoubleJump = false;
+    public bool cooldownDoubleJump = false;
     private bool willDoubleJump = false;
     #endregion
 
