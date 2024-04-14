@@ -62,17 +62,18 @@ public class MenuManager : MonoBehaviour
     }
     public void RespawnPlayer()
     {
-        Debug.Log("RESPAWN PLAYER");
-        // add code for respawning player here
+        Player player = FindFirstObjectByType<Player>();
+        if (player != null) {
+            player.isDead = true;
+            TogglePause();
+        }
     }
     public void ExitGame()
     {
-        Debug.Log("Game Should exit");
         Application.Quit();
     }
     public void RestartGame()
     {
-        Debug.Log("Game Should restart");
         SceneManager.LoadScene("StartScreen");
     }
 }
