@@ -25,9 +25,14 @@ public class SummonController : MonoBehaviour
                 var summon = summonPlacer.GetSummon();
                 summon.SetActive(true);
                 var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var summonComp = summon.GetComponent<SummonBase>();
+                if(summonComp.summon == Summon.Platform){
+                    summon.layer = 3;
+                    summon.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Ground";
+                }
                 pos.z = 0;
                 summon.transform.position = pos;
-                summon.GetComponent<SummonBase>().SetPlaced();
+                summonComp.SetPlaced();
             }
         }
     }

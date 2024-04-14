@@ -15,6 +15,7 @@ public class SummonPlacer : MonoBehaviour
     private float xWidth;
     private int selectedSummonIndex;
     private GhostRenderer ghostRenderer;
+    private InventoryManager inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class SummonPlacer : MonoBehaviour
         player = FindFirstObjectByType<Player>();
         var rect = GetComponent<RectTransform>();
         xWidth = rect.sizeDelta.x;
+        inventoryManager = FindFirstObjectByType<InventoryManager>();
     }
 
     // Update is called once per frame
@@ -33,9 +35,13 @@ public class SummonPlacer : MonoBehaviour
 
     }
 
+    private List<GameObject> GetSummons(){
+        return summonPrefabs.Where(s => inventoryManager.summonsAquiredEnum.Contains(s.GetComponent<SummonBase>().summon)).ToList();
+    }
+
     public void Enable(){
         renderers.ForEach(r => r.enabled = true);
-        foreach(var summon in summonPrefabs){
+        foreach(var summon in GetSummons()){
             summon.GetComponent<SummonBase>().isPlaced = false;
         }
         SetupSummons();
@@ -43,7 +49,7 @@ public class SummonPlacer : MonoBehaviour
 
     public void Disable(){
         renderers.ForEach(r => r.enabled = false);
-        foreach(var summon in summonPrefabs){
+        foreach(var summon in GetSummons()){
             if(!summon.GetComponent<SummonBase>().isPlaced){
                 summon.SetActive(false);
             }
@@ -51,7 +57,7 @@ public class SummonPlacer : MonoBehaviour
     }
 
     private void SetupSummons(){
-        foreach(var summon in summonPrefabs){
+        foreach(var summon in GetSummons()){
             summon.SetActive(true);
             var pos = player.currentTile.transform.position;
             pos.x -= tileOffset;
@@ -69,7 +75,7 @@ public class SummonPlacer : MonoBehaviour
     private void SetSummonPositions(){
         transform.position = new Vector3(player.currentTile.transform.position.x + xOffset, player.currentTile.transform.position.y + yOffset);
         var startingX = player.currentTile.transform.position.x - 16;
-        var summonsToPlace = summonPrefabs.Where(s => !s.GetComponent<SummonBase>().isPlaced).ToList();
+        var summonsToPlace = GetSummons().Where(s => !s.GetComponent<SummonBase>().isPlaced).ToList();
         var yPosition = transform.position.y;
         var xTileOffset = xWidth / (summonsToPlace.Count() + 1);
         for(int i = 0; i < summonsToPlace.Count(); i++){
@@ -80,7 +86,7 @@ public class SummonPlacer : MonoBehaviour
 
     private void SelectSummon(int index){
         Debug.Log("index:" + selectedSummonIndex);
-        var summonsToPlace = summonPrefabs.Where(s => !s.GetComponent<SummonBase>().isPlaced).ToList();
+        var summonsToPlace = GetSummons().Where(s => !s.GetComponent<SummonBase>().isPlaced).ToList();
         if(summonsToPlace.Count - 1 >= selectedSummonIndex){
             summonsToPlace[selectedSummonIndex].GetComponentInChildren<SelectGlow>().isSelected = false;
         }
@@ -90,13 +96,13 @@ public class SummonPlacer : MonoBehaviour
     }
 
     public GameObject GetSummon(){
-        return summonPrefabs.Where(s => !s.GetComponent<SummonBase>().isPlaced).ToList()[selectedSummonIndex];
+        return GetSummons().Where(s => !s.GetComponent<SummonBase>().isPlaced).ToList()[selectedSummonIndex];
     }
 
     public bool HasNoSummons(){
-        var hasNoSummons = summonPrefabs.Where(s => !s.GetComponent<SummonBase>().isPlaced).Count() <= 0;
+        var hasNoSummons = GetSummons().Where(s => !s.GetComponent<SummonBase>().isPlaced).Count() <= 0;
         if(hasNoSummons){
-            foreach(var summon in summonPrefabs){
+            foreach(var summon in GetSummons()){
                 summon.GetComponentInChildren<SelectGlow>().isSelected = false;
             }
         }

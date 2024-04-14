@@ -6,8 +6,8 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public List<SummonBase> summons;
-    public List<SummonBase> summonsAquired { get; private set; }
-    public List<Summon> summonsAquiredEnum { get; private set; }
+    public List<SummonBase> summonsAquired;
+    public List<Summon> summonsAquiredEnum;
     public Guitar guitar;
     // Start is called before the first frame update
     void Start()

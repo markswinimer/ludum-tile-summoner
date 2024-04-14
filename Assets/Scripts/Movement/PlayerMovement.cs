@@ -74,6 +74,9 @@ public class PlayerMovement : MonoBehaviour
     public bool canDoubleJump;
     public bool cooldownDoubleJump = false;
     private bool willDoubleJump = false;
+
+    public float lowGravMultiplier = 1;
+    public bool isInTheAir;
     #endregion
 
     private void Awake()
@@ -293,7 +296,7 @@ public class PlayerMovement : MonoBehaviour
     #region GENERAL METHODS
     public void SetGravityScale(float scale)
     {
-        RB.gravityScale = scale;
+        RB.gravityScale = scale * lowGravMultiplier;
     }
     #endregion
 
@@ -437,6 +440,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CanJump()
     {
         var canJump = LastOnGroundTime > 0 && !IsJumping;
+        isInTheAir = !canJump;
         if (!cooldownDoubleJump && willDoubleJump)
             canJump = true;
         return canJump;

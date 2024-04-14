@@ -1,4 +1,6 @@
 public enum Summon{
     None,
-    DoubleJump
+    DoubleJump,
+    LowGravity,
+    Platform
 }
