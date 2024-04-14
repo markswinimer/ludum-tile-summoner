@@ -94,6 +94,12 @@ public class SummonPlacer : MonoBehaviour
     }
 
     public bool HasNoSummons(){
-        return summonPrefabs.Where(s => !s.GetComponent<SummonBase>().isPlaced).Count() <= 0;
+        var hasNoSummons = summonPrefabs.Where(s => !s.GetComponent<SummonBase>().isPlaced).Count() <= 0;
+        if(hasNoSummons){
+            foreach(var summon in summonPrefabs){
+                summon.GetComponentInChildren<SelectGlow>().isSelected = false;
+            }
+        }
+        return hasNoSummons;
     }
 }

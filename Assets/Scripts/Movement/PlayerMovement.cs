@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         if (!player.isPlayerControllable && !canDoubleJump) return;
-        if (canDoubleJump && !cooldownDoubleJump) willDoubleJump = true;
+        if (canDoubleJump && !cooldownDoubleJump && (IsJumping || _isJumpCut || _isJumpFalling)) willDoubleJump = true;
         OnJumpInput();
     }
 

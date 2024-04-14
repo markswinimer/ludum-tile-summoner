@@ -2910,7 +2910,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.05
-  m_Pitch: 1
+  m_Pitch: 2.01
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -4089,6 +4089,7 @@ GameObject:
   - component: {fileID: 1391690391}
   - component: {fileID: 1391690393}
   - component: {fileID: 1391690392}
+  - component: {fileID: 1391690394}
   m_Layer: 0
   m_Name: SelectGlow
   m_TagString: Untagged
@@ -4151,9 +4152,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 700102221
+  m_SortingLayer: 1
+  m_SortingOrder: -3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4179,6 +4180,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   sprite: {fileID: 0}
+  yOffset: -10.75
+--- !u!95 &1391690394
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391690390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -6702076844333840521, guid: de80857456562104db58d1c58c1b3374, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1419303522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4357,7 +4381,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 700102221
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: -7
   m_Sprite: {fileID: -3720451927622562756, guid: d65e1365fcd29244b82140629d0010b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5004,7 +5028,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 700102221
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_Sprite: {fileID: -3720451927622562756, guid: d65e1365fcd29244b82140629d0010b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
