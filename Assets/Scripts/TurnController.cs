@@ -10,7 +10,7 @@ public class TurnController : MonoBehaviour
     public TilePlacer tilePlacer;
     public SummonController summonController;
     public CinemachineVirtualCamera virtualCamera;
-    public float playerLensSize = 9;
+    public float playerLensSize = 4.8f;
     public float tilePlacementLensSize = 20;
     private PlayMode currentPlayMode;
     public PlayerInputActions playerControls;

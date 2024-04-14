@@ -92,7 +92,7 @@ public class TileMaster : MonoBehaviour
         return tile1;
     }
 
-    private bool CanTilesTouch(Tile tileOne, Tile tileTwo, DoorWall doorWall, TilePosition newTilePosition, out TilePosition tilePosition){
+    public bool CanTilesTouch(Tile tileOne, Tile tileTwo, DoorWall doorWall, TilePosition newTilePosition, out TilePosition tilePosition){
         var cont = false;
         foreach(var door in tileOne.doors.Where(d => d.doorWall == doorWall)){
             foreach(var doorTwo in tileTwo.doors){

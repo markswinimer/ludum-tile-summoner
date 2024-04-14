@@ -420,7 +420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418975138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
@@ -570,7 +570,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.3541665
+  orthographic size: 4.76
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -892,6 +892,7 @@ MonoBehaviour:
   numberOfTileOptions: 5
   tilesToPlaceMaxCount: 3
   tilesToPlaceCount: 3
+  highlightPrefab: {fileID: 7860539302032293733, guid: 9f56db62ff2bdea42ab58acab7e60474, type: 3}
 --- !u!1001 &900496725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1072,6 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlaced: 0
   sprite: {fileID: -1973733070974897118, guid: 83e9702ff64c0ad43b9f3ec667eb20b0, type: 3}
+  player: {fileID: 0}
   canUsePower: 0
 --- !u!212 &1011521692
 SpriteRenderer:
@@ -1176,7 +1178,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1712253551}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 4.76
@@ -1894,7 +1896,7 @@ MonoBehaviour:
   tilePlacer: {fileID: 0}
   summonController: {fileID: 0}
   virtualCamera: {fileID: 0}
-  playerLensSize: 9
+  playerLensSize: 4.8
   tilePlacementLensSize: 20
 --- !u!4 &1607600922
 Transform:
@@ -1958,6 +1960,11 @@ Transform:
   - {fileID: 1490333047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1712253551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 132889609293911932, guid: 05e48315ce7b2d940ad511c13e2aa855, type: 3}
+  m_PrefabInstance: {fileID: 466658979}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1795938959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2222,6 +2229,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1863392963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863392965}
+  - component: {fileID: 1863392964}
+  m_Layer: 0
+  m_Name: HighlightTiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1863392964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863392963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46be59daf5547ac40bde7a82f3623c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1863392965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863392963}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2044600668}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1986264452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,6 +2420,7 @@ Transform:
   - {fileID: 459641686}
   - {fileID: 1354296214}
   - {fileID: 828919038}
+  - {fileID: 1863392965}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8841892046342185058

@@ -18,6 +18,7 @@ public class TilePlacer : MonoBehaviour
     public int tilesToPlaceMaxCount = 3;
     public int tilesToPlaceCount = 3;
     private int tileOffset = 10;
+    private int tilePlaceOffset = 10;
     private int xOffset = -14;
     private int yOffset = -8;
     private int selectedTileIndex;
@@ -29,6 +30,10 @@ public class TilePlacer : MonoBehaviour
     private InputAction placeTileUp;
     private SpriteRenderer spriteRenderer;
     private float xWidth;
+    public List<HighlightHelper> highlightPositions;
+    public GameObject highlightPrefab;
+    private HighlightTiles highlightParent;
+    private List<GameObject> existingHighlights;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +58,9 @@ public class TilePlacer : MonoBehaviour
         placeTileUp = playerControls.Player.PlaceTileUp;
         placeTileUp.Enable();
         placeTileUp.performed += PlaceTileUp;
+        highlightPositions = new List<HighlightHelper>();
+        highlightParent = FindFirstObjectByType<HighlightTiles>();
+        existingHighlights = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -113,7 +121,7 @@ public class TilePlacer : MonoBehaviour
         spriteRenderer.enabled = true;
     }
 
-    private void TryCreateNewTile(TilePosition newTilePosition, DoorWall doorWall){
+    public void TryCreateNewTile(TilePosition newTilePosition, DoorWall doorWall){
         if(tilesToPlaceCount <= 0) return;
         var newTile = tileMaster.CreateTile(currentTile.tilePosition, newTilePosition, doorWall, tilesToPlace[selectedTileIndex]);
         if(newTile == null) return;
@@ -159,11 +167,77 @@ public class TilePlacer : MonoBehaviour
     }
 
     private void SelectTile(int index){
+        RemoveHighlights();
         Debug.Log("index:" + selectedTileIndex);
         if(tilesToPlace.Count - 1 >= selectedTileIndex){
             tilesToPlace[selectedTileIndex].GetComponentInChildren<SelectGlow>().isSelected = false;
         }
         selectedTileIndex = index;
         tilesToPlace[index].GetComponentInChildren<SelectGlow>().isSelected = true;
+        HighlightPlacements();
+    }
+
+    private void HighlightPlacements(){
+        //Get all possible tile locations based on touchingTile
+        var borderingPlacements = new List<HighlightHelper>();
+        for(int i = 0; i < currentTile.xSize; i++){
+            var xPos = currentTile.tilePosition.x + i;
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y - 1), DoorWall.Bottom));
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y + currentTile.ySize), DoorWall.Top));
+        }
+        for(int i = 0; i < currentTile.ySize; i++){
+            var yPos = currentTile.tilePosition.y + i;
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(currentTile.tilePosition.x - 1, yPos), DoorWall.Left));
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(currentTile.tilePosition.x + currentTile.xSize, yPos), DoorWall.Right));
+        }
+
+        //remove locations taken in existing tiles
+        var possiblePlacements = new List<HighlightHelper>();
+        foreach(var borderingPlacement in borderingPlacements){
+            if(!tileMaster.existingTiles.TryGetValue(borderingPlacement.tilePosition, out var _)){
+                possiblePlacements.Add(borderingPlacement);
+            }
+        }
+
+        foreach(var possiblePlacement in possiblePlacements){
+            var highlight = tileMaster.CanTilesTouch(currentTile, tilesToPlace[selectedTileIndex].GetComponent<Tile>(), possiblePlacement.doorWall,
+                possiblePlacement.tilePosition, out var tilePosition);
+            if(highlight){
+                highlightPositions.Add(possiblePlacement);
+            } 
+        }
+        EnableHighlights();
+    }
+
+    private void EnableHighlights(){
+        Debug.Log("highlighting test");
+        foreach(var highlight in highlightPositions){
+            Debug.Log("highlighting");
+            var pos = highlightParent.transform.position;
+            Debug.Log("x="+highlight.tilePosition.x + " - y="+ highlight.tilePosition.y);
+            pos.x += tilePlaceOffset * highlight.tilePosition.x;
+            pos.y += tilePlaceOffset * highlight.tilePosition.y;
+            var highlightTile = Instantiate(highlightPrefab, highlightParent.transform);
+            highlightTile.transform.position = pos;
+            var tileComp = highlightTile.GetComponent<HighlightTile>();
+            tileComp.tilePosition = highlight.tilePosition;
+            tileComp.doorWall = highlight.doorWall;
+            highlightTile.SetActive(true);
+            existingHighlights.Add(highlightTile);
+        }
+    }
+
+    private void RemoveHighlights(){
+        //Debug.Log("Remove highlights, count="+existingHighlights.Count);
+        //foreach(var highlight in FindFirstObjectByType<HighlightTiles>().GetComponentsInChildren<HighlightTile>()){
+        //    Destroy(highlight.gameObject);
+        //}
+        //Debug.Log("Passed Remove highlights, count="+existingHighlights.Count);
+
+        for(int i = 0; i < existingHighlights.Count; i++){
+            Destroy(existingHighlights[i]);
+        }
+        Debug.Log("Reached new list of highlights");
+        existingHighlights = new List<GameObject>();
     }
 }
