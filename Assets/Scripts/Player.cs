@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public bool isPlayerControllable { get; private set; }
+    public bool isPlayerControllable;
+    // public bool isPlayerControllable { get; private set; }
     public Tile currentTile;
     // Start is called before the first frame update
     void Start()
