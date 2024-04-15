@@ -6,8 +6,6 @@ using System.Collections;
 
 public class StartMenu : MonoBehaviour
 {
-    // elements on start menu scene
-    public AudioManager audioManager;
     public CanvasGroup uiElement;
 
     void Start()

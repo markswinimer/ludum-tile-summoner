@@ -78,8 +78,4 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("StartScreen");
-    }
 }
