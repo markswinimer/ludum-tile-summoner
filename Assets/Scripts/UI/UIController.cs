@@ -11,7 +11,6 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("I key pressed");
         // Check if 'I' key is pressed
         if (Input.GetKeyDown(KeyCode.I))
         {
