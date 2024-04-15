@@ -36,10 +36,10 @@ public class SummonBase : MonoBehaviour
         spriteRenderer.sprite = sprite;
         proximity = 1f;
         expirationTimer = 10;
-        gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         audioSource.resource = playOnUseSound;
         SummonStart();
+        gameObject.SetActive(false);
     }
 
     public virtual void SummonStart(){

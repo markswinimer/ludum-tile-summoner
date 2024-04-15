@@ -77,12 +77,15 @@ public class PlayerMovement : MonoBehaviour
 
     public float lowGravMultiplier = 1;
     public bool isInTheAir;
+
+    private Animator animator;
     #endregion
 
     private void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
         playerControls = new PlayerInputActions();
+        animator = GetComponent<Animator>();
     }
     private void OnEnable()
     {
@@ -306,6 +309,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = _moveInput.x * Data.runMaxSpeed;
+        if(targetSpeed == 0) animator.SetTrigger("Idle");
  
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
         targetSpeed = Mathf.Lerp(RB.velocity.x, targetSpeed, lerpAmount);
@@ -348,6 +352,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Convert this to a vector and apply to rigidbody
         RB.AddForce(movement * Vector2.right, ForceMode2D.Force);
+        animator.SetTrigger("Run");
 
         /*
 		 * For those interested here is what AddForce() will do
@@ -384,8 +389,9 @@ public class PlayerMovement : MonoBehaviour
         float force = Data.jumpForce;
         if (RB.velocity.y < 0)
             force -= RB.velocity.y;
-
+        
         RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        animator.SetTrigger("Jump");
         #endregion
     }
 
