@@ -9,6 +9,9 @@ public class LowGravitySummon : SummonBase
     private PlayerMovement playerMovement;
 
     private bool playedSoundThisJump;
+
+    private bool powerInUse;
+
     // Start is called before the first frame update
     public override void SummonStart()
     {
@@ -28,12 +31,17 @@ public class LowGravitySummon : SummonBase
     void Update()
     {
         if(canUsePower){
+            powerInUse = true;
+        }
+        if(!playedSoundThisJump && canUsePower && playerMovement.isInTheAir) StartCoroutine(HandleSound());
+
+        if(canUsePower || (powerInUse && playerMovement.isInTheAir)){
             playerMovement.lowGravMultiplier = 0.5f;
         }
         else{
             playerMovement.lowGravMultiplier = 1f;
+            powerInUse = false;
         }
-        if(!playedSoundThisJump && canUsePower && playerMovement.isInTheAir) StartCoroutine(HandleSound());
     }
 
     private IEnumerator HandleSound(){
