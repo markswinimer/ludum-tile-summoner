@@ -1931,6 +1931,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1439885269773761998, guid: 05e48315ce7b2d940ad511c13e2aa855, type: 3}
+      propertyPath: redAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: 30f81f1beb428b44c8a7c0242c4726f4, type: 2}
+    - target: {fileID: 1439885269773761998, guid: 05e48315ce7b2d940ad511c13e2aa855, type: 3}
+      propertyPath: tealAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: 3437070d1b6d27741bec3251518363ef, type: 2}
+    - target: {fileID: 1439885269773761998, guid: 05e48315ce7b2d940ad511c13e2aa855, type: 3}
+      propertyPath: basicAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: edfaa2679fc41f54587bac403b173d45, type: 2}
+    - target: {fileID: 1439885269773761998, guid: 05e48315ce7b2d940ad511c13e2aa855, type: 3}
+      propertyPath: yellowAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: 2de3ba56ad5060148a52d14dda9e0880, type: 2}
     - target: {fileID: 2055000336309824990, guid: 05e48315ce7b2d940ad511c13e2aa855, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
