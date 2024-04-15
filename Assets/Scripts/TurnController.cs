@@ -101,7 +101,7 @@ public class TurnController : MonoBehaviour
             case PlayMode.Summon:
                 summonController.ChangeControl();
                 virtualCamera.m_Lens.OrthographicSize = summonPlacementLensSize;
-                virtualCamera.Follow = player.currentTile.GetComponentInChildren<PlayerDetector>().transform;
+                virtualCamera.Follow = player.transform;
                 audioSource.Play();
                 break;
         }
