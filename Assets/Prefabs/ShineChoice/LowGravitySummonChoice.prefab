@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: summon
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8372204350745311472, guid: 5be1e8c3758f51e45abfba6f67f5556e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.875
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

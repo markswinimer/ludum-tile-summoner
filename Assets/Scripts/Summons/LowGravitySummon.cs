@@ -13,7 +13,7 @@ public class LowGravitySummon : SummonBase
     public override void SummonStart()
     {
         playerMovement = player.GetComponent<PlayerMovement>();
-        proximity = 4f;
+        proximity = 5.5f;
         summon = Summon.LowGravity;
     }
 
