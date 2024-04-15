@@ -730,6 +730,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 60383805919105483, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: yPos
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 60383805919105483, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: yLength
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 450304428164545247, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
       propertyPath: m_CompositeOperation
       value: 1
@@ -1477,6 +1485,38 @@ PrefabInstance:
     - target: {fileID: 2451423021690197066, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[13].X
       value: 100000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200399006668568557, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: xPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200399006668568557, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: yPos
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200399006668568557, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: xLength
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200399006668568557, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: doorWall
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: xPos
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: yPos
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: yLength
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: doorWall
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4088813326375457891, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
       propertyPath: m_Tiles.Array.size
@@ -2641,6 +2681,22 @@ PrefabInstance:
     - target: {fileID: 6529639533307443669, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
       propertyPath: m_Color.r
       value: 0.14901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: xPos
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: yPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: xLength
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
+      propertyPath: doorWall
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7805862182351115014, guid: f8ac652e1f5bcbe41a7fd19e8bf09033, type: 3}
       propertyPath: m_Simulated

@@ -552,6 +552,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 60383805919105483, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: yPos
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 60383805919105483, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: yLength
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200399006668568557, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: yPos
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200399006668568557, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: yLength
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: xPos
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: yPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: xLength
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608090788438946400, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: doorWall
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4088813326375457891, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 32
@@ -1715,6 +1747,18 @@ PrefabInstance:
     - target: {fileID: 4438952303192571016, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: xPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: yLength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425799393070225258, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
+      propertyPath: doorWall
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9161699995361929583, guid: 92f8b9865dd84d749abfa55c2810ed7c, type: 3}
       propertyPath: m_Name
