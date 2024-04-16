@@ -43,9 +43,4 @@ public class DoubleJumpSummon : SummonBase
         }
         playedSoundThisJump = false;
     }
-
-    public override void PlaySound()
-    {
-        audioSource.Play();
-    }
 }

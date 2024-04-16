@@ -12,7 +12,9 @@ public class Door : MonoBehaviour {
 
     private void Start() {
         Debug.Log("Door Start");
-        var tile = GetComponentInParent<Tile>();
+    }
+
+    public void SetSize(Tile tile){
         yTileSize = tile.ySize;
         xTileSize = tile.xSize;
     }
@@ -49,6 +51,21 @@ public class Door : MonoBehaviour {
                 otherModStart = door.yPos % tileOffset;
                 otherModEnd = otherModStart + door.yLength;
                 return door.doorWall == DoorWall.Top && modStart < otherModEnd && otherModStart < modEnd;
+            default:
+                return false;
+        }
+    }
+
+    public bool IsOpposite(DoorWall otherDoorWall){
+        switch(doorWall){
+            case DoorWall.Left:
+                return otherDoorWall == DoorWall.Right;
+            case DoorWall.Right:
+                return otherDoorWall == DoorWall.Left;
+            case DoorWall.Top:
+                return otherDoorWall == DoorWall.Bottom;
+            case DoorWall.Bottom:
+                return otherDoorWall == DoorWall.Top;
             default:
                 return false;
         }

@@ -46,8 +46,7 @@ public class TurnController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(tilePlacer.isControllable && tilePlacer.tilesToPlaceCount <= 0){
-            tilePlacer.PlaceShrineTile();
+        if(tilePlacer.isControllable && tilePlacer.tilesToPlaceCount <= 0 && tilePlacer.shrineTilePlaced){
             ChangeControl(PlayMode.Player);
         }
         if(summonController.isSummonMode && summonController.HasNoSummons()){

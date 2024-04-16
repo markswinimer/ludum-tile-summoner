@@ -35,6 +35,8 @@ public class TilePlacer : MonoBehaviour
     private HighlightTiles highlightParent;
     private List<GameObject> existingHighlights;
     private InventoryManager inventoryManager;
+
+    public bool shrineTilePlaced;
     // Start is called before the first frame update
     void Start()
     {
@@ -121,6 +123,7 @@ public class TilePlacer : MonoBehaviour
         }
         if(!isControllable){
             spriteRenderer.enabled = false;
+            shrineTilePlaced = false;
             return;
         } 
         CreateFakeTiles();
@@ -128,9 +131,9 @@ public class TilePlacer : MonoBehaviour
         spriteRenderer.enabled = true;
     }
 
-    public void TryCreateNewTile(TilePosition newTilePosition, DoorWall doorWall){
+    public void TryCreateNewTile(TilePosition newTilePosition, DoorWall doorWall, bool click = false){
         if(tilesToPlaceCount <= 0) return;
-        var newTile = tileMaster.CreateTile(currentTile.tilePosition, newTilePosition, doorWall, tilesToPlace[selectedTileIndex]);
+        var newTile = tileMaster.CreateTile(currentTile.tilePosition, newTilePosition, doorWall, tilesToPlace[selectedTileIndex], click);
         if(newTile == null) return;
         currentTile = newTile.GetComponent<Tile>();
         virtualCamera.Follow = currentTile.GetComponentInChildren<PlayerDetector>().transform;
@@ -141,6 +144,10 @@ public class TilePlacer : MonoBehaviour
         SelectTile(0);
         SetTilePositions();
         if(IsLockedOut()) CreateFakeTiles();
+        if(tilesToPlaceCount <= 0){
+            //finished placing, place shrine
+            PlaceShrineTile();
+        }
     }
 
     private void CreateFakeTiles(){
@@ -193,7 +200,7 @@ public class TilePlacer : MonoBehaviour
         foreach(var tile in tilesToPlace){
             foreach(var possiblePlacement in possiblePlacements){
                 var highlight = tileMaster.CanTilesTouch(currentTile, tile.GetComponent<Tile>(), possiblePlacement.doorWall,
-                    possiblePlacement.tilePosition, out var tilePosition);
+                    possiblePlacement.tilePosition, out var tilePosition, false);
                 if(highlight){
                     return false;
                 } 
@@ -228,6 +235,8 @@ public class TilePlacer : MonoBehaviour
     }
 
     private void HighlightPlacements(){
+        
+        Debug.Log("Created highlight trying to create");
         //Get all possible tile locations based on touchingTile
         var borderingPlacements = new List<HighlightHelper>();
         highlightPositions.Clear();
@@ -252,7 +261,7 @@ public class TilePlacer : MonoBehaviour
 
         foreach(var possiblePlacement in possiblePlacements){
             var highlight = tileMaster.CanTilesTouch(currentTile, tilesToPlace[selectedTileIndex].GetComponent<Tile>(), possiblePlacement.doorWall,
-                possiblePlacement.tilePosition, out var tilePosition);
+                possiblePlacement.tilePosition, out var tilePosition, false);
             if(highlight){
                 highlightPositions.Add(possiblePlacement);
             } 
@@ -275,6 +284,7 @@ public class TilePlacer : MonoBehaviour
             tileComp.doorWall = highlight.doorWall;
             highlightTile.SetActive(true);
             existingHighlights.Add(highlightTile);
+            Debug.Log("Created highlight finished creating");
         }
     }
 
@@ -284,7 +294,7 @@ public class TilePlacer : MonoBehaviour
         }
     }
 
-    public void PlaceShrineTile(){
+    public void PlaceShrineTileOld(){
         var shrineCreated = false;
         GameObject newTile = null;
         while(!shrineCreated){
@@ -316,14 +326,72 @@ public class TilePlacer : MonoBehaviour
                 if(shrineCreated) break;
             }
             if(shrineCreated) break;
-            Debug.LogWarning("Shrine never created");
+            Debug.LogWarning("Shrine never created1");
             shrineCreated = true;
             break;
         }
         if(newTile == null) return;
         currentTile = newTile.GetComponent<Tile>();
         virtualCamera.Follow = currentTile.GetComponentInChildren<PlayerDetector>().transform;
+        Debug.Log("Placed shrine tile, deleting highlights");
         RemoveHighlights();
+    }
+
+    public void PlaceShrineTile(){
+        Debug.Log("start place shrine");
+        //Get all possible tile locations based on touchingTile
+        var borderingPlacements = new List<HighlightHelper>();
+        var places = new List<HighlightHelper>();
+        for(int i = 0; i < currentTile.xSize; i++){
+            var xPos = currentTile.tilePosition.x + i;
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y - 1), DoorWall.Bottom));
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(xPos, currentTile.tilePosition.y + currentTile.ySize), DoorWall.Top));
+        }
+        for(int i = 0; i < currentTile.ySize; i++){
+            var yPos = currentTile.tilePosition.y + i;
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(currentTile.tilePosition.x - 1, yPos), DoorWall.Left));
+            borderingPlacements.Add(new HighlightHelper(new TilePosition(currentTile.tilePosition.x + currentTile.xSize, yPos), DoorWall.Right));
+        }
+
+        //remove locations taken in existing tiles
+        var possiblePlacements = new List<HighlightHelper>();
+        foreach(var borderingPlacement in borderingPlacements){
+            if(!tileMaster.existingTiles.TryGetValue(borderingPlacement.tilePosition, out var _)){
+                possiblePlacements.Add(borderingPlacement);
+            }
+        }
+
+        Debug.Log("possiblePlacements="+possiblePlacements.Count);
+        foreach(var possiblePlacement in possiblePlacements){
+            var highlight = tileMaster.CanTilesTouch(currentTile, tileMaster.shrineTiles[0].GetComponent<Tile>(), possiblePlacement.doorWall,
+                possiblePlacement.tilePosition, out var tilePosition, true);
+            if(highlight){
+                places.Add(possiblePlacement);
+            } 
+        }
+
+        var shrineCreated = false;
+        GameObject newTile = null;
+
+        Debug.Log("placeCount="+places.Count);
+        foreach(var place in places){
+            newTile = tileMaster.CreateTile(currentTile.tilePosition, place.tilePosition,
+                place.doorWall, tileMaster.shrineTiles[0], true);
+            if(newTile != null){
+                shrineCreated = true;
+                break;
+            }
+        }
+        RemoveHighlights();
+        if(!shrineCreated){
+            Debug.Log("Shrine never created2");
+            return;
+        } 
+        currentTile = newTile.GetComponent<Tile>();
+        virtualCamera.Follow = currentTile.GetComponentInChildren<PlayerDetector>().transform;
+        shrineTilePlaced = true;
+        Debug.Log("Placed shrine tile");
+
     }
 
     private bool MeetsPlayerCriteria(Tile tile){

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5198435235776710924}
   - component: {fileID: 8385179014805107047}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 8088563916839437024}
   - component: {fileID: 679306256188365165}
   - component: {fileID: 3435182982444001647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: 6.416e-41, g: 6.416e-41, b: 6.416e-41, a: 6.416e-41}
   - m_RefCount: 36
-    m_Data: {r: 0.905393, g: 0.5904888, b: 0.63612, a: 1}
+    m_Data: {r: 0.8497094, g: 0.5663758, b: 0.62078744, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -548,7 +548,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 855166831437965644}
   - component: {fileID: 1901273236320141177}
   - component: {fileID: 7810351015094343243}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HighlightTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ Transform:
   m_GameObject: {fileID: 7860539302032293733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

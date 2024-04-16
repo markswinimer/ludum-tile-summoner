@@ -20,6 +20,16 @@ public class Tile : MonoBehaviour
             summonRequirements = new List<Summon>();
         }
         Debug.Log("Door Count:"+doors.Count);
+        foreach(var door in doors){
+            door.SetSize(this);
+        }
+    }
+
+    public void ResetDoors(){
+        doors = GetComponentsInChildren<Door>().ToList();
+        foreach(var door in doors){
+            door.SetSize(this);
+        }
     }
 
     // Update is called once per frame

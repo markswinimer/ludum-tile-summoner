@@ -13,6 +13,7 @@ public class HighlightTile : MonoBehaviour
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
         tilePlacer = FindFirstObjectByType<TilePlacer>();
+        Debug.Log("Created highlight tile start");
     }
 
     // Update is called once per frame
@@ -20,11 +21,12 @@ public class HighlightTile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Created highlight tile click");
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (boxCollider2D.OverlapPoint(mousePosition))
             {
-                tilePlacer.TryCreateNewTile(tilePosition, doorWall);
+                tilePlacer.TryCreateNewTile(tilePosition, doorWall, true);
             }
         }
     }

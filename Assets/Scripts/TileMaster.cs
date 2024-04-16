@@ -33,7 +33,7 @@ public class TileMaster : MonoBehaviour
         
     }
 
-    public GameObject CreateTile(TilePosition currentTilePosition, TilePosition newTilePoisition, DoorWall doorWall, GameObject selectedTile){
+    public GameObject CreateTile(TilePosition currentTilePosition, TilePosition newTilePoisition, DoorWall doorWall, GameObject selectedTile, bool click = false){
         //TODO: Check all surrounding tiles, not just left tile
         var exists = existingTiles.TryGetValue(currentTilePosition, out var touchingTile);
         //Get all possible tile locations based on touchingTile
@@ -60,14 +60,20 @@ public class TileMaster : MonoBehaviour
 
         //try to "place" each tile on each possible location, and check with size if full tile can fit
         if(!exists){
+            Debug.Log("exists = false, creating at "+currentTilePosition.ToString());
             return CreateTile(currentTilePosition, tilePrefabs[Random.Range(0, tilePrefabs.Count)]);
         }
         else{
-            if(CanTilesTouch(touchingTile, selectedTile.GetComponent<Tile>(), doorWall, newTilePoisition, out var trueTilePosition)){
+            if(CanTilesTouch(touchingTile, selectedTile.GetComponent<Tile>(), doorWall, newTilePoisition, out var trueTilePosition, click)){
+                Debug.Log("exists = true, cantouch, creating at "+GetTilePosString(trueTilePosition)+ " newtilepos=" + GetTilePosString(newTilePoisition) + " touchtilepos= "+ GetTilePosString(touchingTile.tilePosition));
                 return CreateTile(trueTilePosition, selectedTile);
             }
         }
         return null;
+    }
+
+    private string GetTilePosString(TilePosition tilePosition){
+        return "(" + tilePosition.x.ToString() +","+tilePosition.y.ToString() + ")";
     }
 
     public GameObject CreateTile(TilePosition tilePosition, GameObject tileToCreate){
@@ -94,21 +100,32 @@ public class TileMaster : MonoBehaviour
         return tile1;
     }
 
-    public bool CanTilesTouch(Tile tileOne, Tile tileTwo, DoorWall doorWall, TilePosition newTilePosition, out TilePosition tilePosition){
+    public bool CanTilesTouch(Tile tileOne, Tile tileTwo, DoorWall doorWall, TilePosition newTilePosition, out TilePosition tilePosition, bool click){
         var cont = false;
+        Debug.Log("can touch start");
+        tileTwo.ResetDoors();
         foreach(var door in tileOne.doors.Where(d => d.doorWall == doorWall)){
-            foreach(var doorTwo in tileTwo.doors){
+            Debug.Log("can touch start 2");
+            Debug.Log("tiletwo door count="+tileTwo.doors.Count);
+            foreach(var doorTwo in tileTwo.doors.Where(d2 => d2.IsOpposite(door.doorWall))){
+                Debug.Log("can touch start 3");
                 cont = false;
                 var isMatch = door.IsMatch(doorTwo);
+                Debug.Log("ismatch =" + isMatch.ToString());
+                Debug.Log("click =" + click.ToString());
+                if(click && isMatch){
+                    Debug.Log("ismatch and click");
+                    var tileY = doorTwo.yPos / doorTwo.tileOffset;
+                    var tileX = doorTwo.xPos / doorTwo.tileOffset;
+                    tilePosition = new TilePosition(newTilePosition.x - tileX, newTilePosition.y - tileY);
+                    return true;
+                } 
                 if(isMatch){
                     var tileY = doorTwo.yPos / doorTwo.tileOffset;
                     var tileX = doorTwo.xPos / doorTwo.tileOffset;
                     var doorOnetileY = door.yPos / door.tileOffset;
                     var doorOnetileX = door.xPos / door.tileOffset;
-                    Debug.Log("tileOnePosX:" + newTilePosition.x + " - tile x: " + tileX + " - d1tileX: "+ doorOnetileX);
-                    Debug.Log("tileOnePosY:" + newTilePosition.y + " - tile y: " + tileY + " - d1tileY: "+ doorOnetileY);
                     tilePosition = new TilePosition(newTilePosition.x - tileX + doorOnetileX, newTilePosition.y - tileY + doorOnetileY);
-                    Debug.Log("tileposx:" +tilePosition.x + " - tileposy:" + tilePosition.y);
                     for(int i = 0; i < tileTwo.xSize; i++){
                         for(int j = 0; j < tileTwo.ySize; j++){
                             if(existingTiles.TryGetValue(new TilePosition(tilePosition.x + i, tilePosition.y + j), out var _)){
