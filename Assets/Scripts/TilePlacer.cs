@@ -31,7 +31,7 @@ public class TilePlacer : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private float xWidth;
     public List<HighlightHelper> highlightPositions;
-    public GameObject highlightPrefab;
+    private GameObject highlightPrefab;
     private HighlightTiles highlightParent;
     private List<GameObject> existingHighlights;
     private InventoryManager inventoryManager;
@@ -65,6 +65,7 @@ public class TilePlacer : MonoBehaviour
         highlightParent = FindFirstObjectByType<HighlightTiles>();
         existingHighlights = new List<GameObject>();
         inventoryManager = FindFirstObjectByType<InventoryManager>();
+        highlightPrefab = FindFirstObjectByType<HighlightPrefabParent>().GetComponentInChildren<HighlightTile>().gameObject;
     }
 
     // Update is called once per frame
