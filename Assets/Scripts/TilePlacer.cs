@@ -164,7 +164,7 @@ public class TilePlacer : MonoBehaviour
         if(IsLockedOut()){
             Debug.LogWarning("Locked out");
             //dont want to enable until we only have tiles that will not cause lockout in some form (big tile does this now since it only has one wall with doors)
-            CreateFakeTiles();
+            //CreateFakeTiles();
         }
     }
 
